@@ -1,8 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "./RatherToken.sol";
+
 contract DAO {
 
+    RatherToken public ratherTokenContract;
     enum ProposalStatus { Pending, Closed, Finished }
 
     struct Proposal {
@@ -23,6 +26,10 @@ contract DAO {
 
     Proposal[] public proposals;
     mapping(uint256 => mapping(address => bool)) public hasVoted;
+
+    constructor(address _tokenAddress) {
+        ratherTokenContract = RatherToken(_tokenAddress);
+    }
 
     function createProposal(
         string memory _title,
@@ -51,6 +58,7 @@ contract DAO {
     }
 
     function vote(uint256 _proposalIndex, uint256 _vote) public {
+        require(ratherTokenContractf.balanceOf(msg.sender) >= 0, "Not enough tokens to vote");
         require(_vote == 0 || _vote == 1, "The vote must be 0 (option A) or 1 (option B)");
         require(proposals[_proposalIndex].proposalDeadline > block.timestamp, "The votation date has already finished");
         require(proposals[_proposalIndex].status == ProposalStatus.Closed, "The proposal is already closed");
