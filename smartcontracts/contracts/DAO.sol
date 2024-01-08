@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./RatherToken.sol";
+import { RatherToken } from "./RatherToken.sol";
 
 contract DAO {
 
@@ -58,10 +58,10 @@ contract DAO {
     }
 
     function vote(uint256 _proposalIndex, uint256 _vote) public {
-        require(ratherTokenContractf.balanceOf(msg.sender) >= 0, "Not enough tokens to vote");
+        require(ratherTokenContract.balanceOf(msg.sender) >= 0, "Not enough tokens to vote");
         require(_vote == 0 || _vote == 1, "The vote must be 0 (option A) or 1 (option B)");
         require(proposals[_proposalIndex].proposalDeadline > block.timestamp, "The votation date has already finished");
-        require(proposals[_proposalIndex].status == ProposalStatus.Closed, "The proposal is already closed");
+        require(proposals[_proposalIndex].status == ProposalStatus.Pending, "The proposal is not pending any more");
         require(_proposalIndex < proposals.length, "Proposal was not found");
         require(!hasVoted[_proposalIndex][msg.sender],  "Already voted");
 
@@ -80,8 +80,8 @@ contract DAO {
         Proposal storage proposal = proposals[_proposalIndex];
         require(msg.sender == proposal.admin, "Only the admin can call this function");
 
-        require(proposal.status == ProposalStatus.Finished, "The proposal is already finished");
-        require(_newStatus == ProposalStatus.Pending || _newStatus == ProposalStatus.Closed, "Invalid status");
+        require(proposal.status != ProposalStatus.Finished, "The proposal is already finished");
+        require(_newStatus == ProposalStatus.Pending || _newStatus == ProposalStatus.Closed, "Not permitted status");
 
         proposal.status = _newStatus;
     }
