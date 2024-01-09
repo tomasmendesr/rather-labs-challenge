@@ -3,7 +3,9 @@ import { ProposalStatus } from './ProposalStatus'
 export default interface Proposal {
     title: string,
     description: string,
-    proposalDeadline: number,
+    optionA: string,
+    optionB: string,
+    proposalDeadline: Date,
     minimumVotes: number,
     votesForOptionA: number,
     votesForOptionB: number,

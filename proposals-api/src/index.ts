@@ -1,8 +1,10 @@
-import express from 'express';
+import express from 'express'
 import proposalRouter from './routes/proposal'
+import config from '../config'
+import './utils/bigIntPolyfill';
 
-const app = express();
-const PORT = 3000;
+const app = express()
+const PORT = config.serverPort
 
 app.use(express.urlencoded( {extended: false}))
 app.use(express.json())
@@ -10,5 +12,5 @@ app.use(express.json())
 app.use('/proposals', proposalRouter)
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+  console.log(`Server listening on port ${PORT}`)
+})

@@ -11,6 +11,8 @@ contract DAO {
     struct Proposal {
         string title;
         string description;
+        string optionA;
+        string optionB;
         uint256 proposalDeadline;
         uint256 minimumVotes;
         uint256 votesForOptionA;
@@ -34,6 +36,8 @@ contract DAO {
     function createProposal(
         string memory _title,
         string memory _description,
+        string memory _optionA,
+        string memory _optionB,
         uint256 _proposalDeadline,
         uint256 _minimumVotes
     ) public {
@@ -43,6 +47,8 @@ contract DAO {
             Proposal({
                 title: _title,
                 description: _description,
+                optionA: _optionA,
+                optionB: _optionB,
                 proposalDeadline: _proposalDeadline,
                 minimumVotes: _minimumVotes,
                 votesForOptionA: 0,
@@ -118,6 +124,8 @@ contract DAO {
     function getProposal(uint256 _proposalIndex) external view returns (
         string memory title,
         string memory description,
+        string memory optionA,
+        string memory optionB,
         uint256 proposalDeadline,
         uint256 minimumVotes,
         uint256 votesForOptionA,
@@ -129,6 +137,8 @@ contract DAO {
         return (
             proposal.title,
             proposal.description,
+            proposal.optionA,
+            proposal.optionB,
             proposal.proposalDeadline,
             proposal.minimumVotes,
             proposal.votesForOptionA,
