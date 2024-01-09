@@ -1,0 +1,388 @@
+[
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "proposalIndex",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "proposalDeadline",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProposalCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "proposalIndex",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "proposalPassed",
+          "type": "bool"
+        }
+      ],
+      "name": "ProposalFinished",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "proposalIndex",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "voter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "vote",
+          "type": "uint256"
+        }
+      ],
+      "name": "Voted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "hasVoted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "proposals",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "proposalDeadline",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumVotes",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "votesForOptionA",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "votesForOptionB",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "winningOption",
+          "type": "uint8"
+        },
+        {
+          "internalType": "enum DAO.ProposalStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "internalType": "address",
+          "name": "admin",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ratherTokenContract",
+      "outputs": [
+        {
+          "internalType": "contract RatherToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_proposalDeadline",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_minimumVotes",
+          "type": "uint256"
+        }
+      ],
+      "name": "createProposal",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_vote",
+          "type": "uint256"
+        }
+      ],
+      "name": "vote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum DAO.ProposalStatus",
+          "name": "_newStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "changeProposalStatus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "finishProposal",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getWinningOption",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "winningOption",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllProposals",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "title",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "proposalDeadline",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minimumVotes",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "votesForOptionA",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "votesForOptionB",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint8",
+              "name": "winningOption",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum DAO.ProposalStatus",
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct DAO.Proposal[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_proposalIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getProposal",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "proposalDeadline",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumVotes",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "votesForOptionA",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "votesForOptionB",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "winningOption",
+          "type": "uint8"
+        },
+        {
+          "internalType": "enum DAO.ProposalStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
