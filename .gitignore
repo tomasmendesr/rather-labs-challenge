@@ -133,4 +133,4 @@ dist
 .pnp.*
 
 # truffle
-/build
+build/
