@@ -58,7 +58,7 @@ contract DAO {
     }
 
     function vote(uint256 _proposalIndex, uint256 _vote) public {
-        require(ratherTokenContract.balanceOf(msg.sender) >= 0, "Not enough tokens to vote");
+        require(ratherTokenContract.balanceOf(msg.sender) > 0, "Not enough tokens to vote");
         require(_vote == 0 || _vote == 1, "The vote must be 0 (option A) or 1 (option B)");
         require(proposals[_proposalIndex].proposalDeadline > block.timestamp, "The votation date has already finished");
         require(proposals[_proposalIndex].status == ProposalStatus.Pending, "The proposal is not pending any more");

@@ -125,4 +125,51 @@ contract("DAO", (accounts) => {
     const proposal = await daoInstance.getProposal(0);
     expect(proposal.status.toNumber()).to.equal(2);
   });  
+
+  it("should not allow a user to vote if they don't have enough tokens", async () => {
+    const title = "Proposal 1";
+    const description = "This is the first proposal";
+    const deadline = Math.floor(Date.now() / 1000) + 3600; // Set the deadline 1 hour in the future
+    const minVotes = 10;
+  
+    await daoInstance.createProposal(title, description, deadline, minVotes);
+  
+    try {
+      // Try to vote with an account that doesn't have tokens
+      await daoInstance.vote(0, 1, { from: accounts[2] });
+      assert.fail("Voting should fail if the user doesn't have enough tokens");
+    } catch (error) {
+      assert(
+        error.message.includes("Not enough tokens to vote"),
+        `Unexpected error message: ${error.message}`
+      );
+    }
+  
+    const proposal = await daoInstance.getProposal(0);
+    expect(proposal.votesForOptionA.toNumber()).to.equal(0);
+    expect(proposal.votesForOptionB.toNumber()).to.equal(0);
+  });
+  
+  it("should not allow changing the status by a non-admin user", async () => {
+    const title = "Proposal 1";
+    const description = "This is the first proposal";
+    const deadline = Math.floor(Date.now() / 1000) + 3600; // Set the deadline 1 hour in the future
+    const minVotes = 10;
+  
+    await daoInstance.createProposal(title, description, deadline, minVotes);
+  
+    try {
+      // Try to change status using a non-admin account
+      await daoInstance.changeProposalStatus(0, 1, { from: accounts[2] });
+      assert.fail("Changing status should fail for non-admin user");
+    } catch (error) {
+      assert(
+        error.message.includes("Only the admin can call this function"),
+        `Unexpected error message: ${error.message}`
+      );
+    }
+  
+    const proposal = await daoInstance.getProposal(0);
+    expect(proposal.status.toNumber()).to.equal(0); // Status remains pending
+  });  
 });
