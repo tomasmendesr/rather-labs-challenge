@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, CardContent, Chip, Button, Typography } from '@mui/material';
+import { Card, CardContent, Chip, Typography } from '@mui/material';
+import ProposalOptionVote from './ProposalOptionVote';
 
-const ProposalItem = ({ proposal }) => {
+const ProposalItem = ({ proposalIndex, proposal }) => {
   const statusColors = {
     Pending: 'green',
     Closed: 'grey',
@@ -19,6 +19,10 @@ const ProposalItem = ({ proposal }) => {
     });
     return formattedDate;
   };
+
+  const vote = (option) => {
+    console.log(`voted for option ${option}. proposal index: ${proposalIndex}`)
+  }
 
   return (
     <Card>
@@ -42,18 +46,8 @@ const ProposalItem = ({ proposal }) => {
           <strong>Minimum Votes:</strong> {proposal.minimumVotes}
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
-          <Button variant="outlined" color="primary" style={{ flexDirection: 'column', alignItems: 'center' }}>
-            {proposal.optionA}
-            <Typography variant="caption">
-              {proposal.votesForOptionA} votes
-            </Typography>
-          </Button>
-          <Button variant="outlined" color="primary" style={{ flexDirection: 'column', alignItems: 'center' }}>
-            {proposal.optionB}
-            <Typography variant="caption">
-              {proposal.votesForOptionB} votes
-            </Typography>
-          </Button>
+          <ProposalOptionVote option={proposal.optionA} votes={proposal.votesForOptionA} proposalStatus={proposal.status} onOptionClick={() => vote(0)}/>
+          <ProposalOptionVote option={proposal.optionB} votes={proposal.votesForOptionB} proposalStatus={proposal.status} onOptionClick={() => vote(1)}/>
         </div>
       </CardContent>
     </Card>

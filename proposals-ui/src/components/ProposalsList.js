@@ -19,7 +19,7 @@ const proposalsArray = [
     {
         "title": "First proposal",
         "description": "this is the first proposal example",
-        "optionA": "option A with a really large text to see how it looks",
+        "optionA": "option A",
         "optionB": "option B",
         "proposalDeadline": "2024-01-09T17:45:55.000Z",
         "minimumVotes": 10,
@@ -89,7 +89,7 @@ const ProposalsList = () => {
       <Grid container spacing={2}>
         {proposals.map((proposal, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-            <ProposalItem proposal={proposal} />
+            <ProposalItem proposalIndex={index} proposal={proposal} />
           </Grid>
         ))}
       </Grid>
