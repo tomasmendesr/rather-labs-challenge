@@ -5,7 +5,7 @@ import cors from 'cors'
 import './utils/bigIntPolyfill'
 
 const app = express()
-const PORT = config.serverPort
+const PORT = process.env.PORT || config.serverPort
 
 app.use(express.urlencoded( {extended: false}))
 app.use(express.json())
