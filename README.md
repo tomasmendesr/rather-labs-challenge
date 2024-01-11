@@ -1,66 +1,103 @@
+# Rather Labs Challenge
 
-node createProposal.js "First proposal as example" "This is the first proposal" "Option A" "Option B" 3600 10
-node createProposal.js "Should we allow people without tokens to vote? " "This is the second proposal" "Yes" "No" 3600 5
-node createProposal.js "Minimum votes should always be at least 10? " "This is the third proposal" "Yes" "No" 3600 10
-node createProposal.js "Admin should be able to vote?" "A new proposal" "Yes" "No" 3600 4
-node createProposal.js "Is this the last proposal?" "Final proposal" "Yes" "No" 3600 25
+  
 
-=====================
+#### The DAO
+A DAO is a type of organization that is governed by smart contracts, which
+are self-executing computer programs that automatically enforce the rules
+of the organization.
+Members of the DAO can vote on proposals and decisions using their DAO
+tokens, and the smart contracts automatically execute the decisions based
+on the results of the vote.
+Essentially, a DAO is a decentralized organization that operates on a
+blockchain using smart contracts to facilitate decision-making and enforce
+rules.
 
-DAO contract address: 0x1a4f72422eE5eCB345BB37a8c202CdAd7Fa39d66
-RatherToken address: 0x2EC450905EeeBf56Cf35078A837A3D3BE5DdDDA4
+#### Bare Minimum Requirements
+In this case, you are tasked with developing a full-stack solution for a DAO
+that seeks to allow its token holders (ERC20) to vote on proposals generated
+by an admin on how to operate the organization
+- A single, or a set of smart-contracts to support the DAO.
+- A command-line script that allows the admin create a new proposal
+on-chain with the following fields: Title, description, proposal
+deadline, minimum votes, option A and option B, and any other you
+deemed necessary.
+- A backend module that when spun up, syncs up with all proposals to
+date, and serves all necessary information about such proposals
+through a REST API
+- A frontend application
+- Lists all proposals and their status (pending, closed, finished,
+option A won, option B won, etc)
+- Allows to vote option A or option B
 
-=====================
-truffle migrate --network goerli
+# Project Instructions
 
-2_deploy_contracts.js
-=====================
+## Smart Contracts
 
-   Deploying 'RatherToken'
-   -----------------------
-   > transaction hash:    0x53bb2752575558299ce199d866dda2ae9df6ac15de8e0b0eb531e4fc1385390d
-   > Blocks: 1            Seconds: 8
-   > contract address:    0x2EC450905EeeBf56Cf35078A837A3D3BE5DdDDA4
-   > block number:        10347623
-   > block timestamp:     1704817284
-   > account:             0xED9feF38894a86033253084C1bc39317AcD6ba13
-   > balance:             0.185194386278291615
-   > gas used:            963260 (0xeb2bc)
-   > gas price:           2.500000015 gwei
-   > value sent:          0 ETH
-   > total cost:          0.0024081500144489 ETH
+The smart contracts are already deployed on the Goerli testnet of Ethereum.
 
-   Pausing for 2 confirmations...
+    DAO contract address: 0x1a4f72422eE5eCB345BB37a8c202CdAd7Fa39d66
+	RatherToken address: 0x2EC450905EeeBf56Cf35078A837A3D3BE5DdDDA4
 
-   -------------------------------
-   > confirmation number: 1 (block: 10347624)
-   > confirmation number: 2 (block: 10347625)
+To deploy the smart contracts, follow these steps:
 
-   Deploying 'DAO'
-   ---------------
-   > transaction hash:    0x38a18e909846965a2a2cc41eab3c3e6d279eaad0a2b6ae627de45385ce9aedc2
-   > Blocks: 1            Seconds: 33
-   > contract address:    0x1a4f72422eE5eCB345BB37a8c202CdAd7Fa39d66
-   > block number:        10347626
-   > block timestamp:     1704817344
-   > account:             0xED9feF38894a86033253084C1bc39317AcD6ba13
-   > balance:             0.179174943749398291
-   > gas used:            2407777 (0x24bd61)
-   > gas price:           2.500000012 gwei
-   > value sent:          0 ETH
-   > total cost:          0.006019442528893324 ETH
+1. Create a file named `.secret` inside the `/smartcontracts` directory, containing the mnemonic of the account used to pay for the deployment gas.
+2. Run the following commands for deployment:
 
-   Pausing for 2 confirmations...
+    ```bash
+    truffle compile
+    truffle migrate --network goerli
+    ```
 
-   -------------------------------
-   > confirmation number: 1 (block: 10347627)
-   > confirmation number: 2 (block: 10347628)
-   > Saving migration to chain.
-   > Saving artifacts
-   -------------------------------------
-   > Total cost:     0.008427592543342224 ETH
+## Backend
 
-Summary
-=======
-> Total deployments:   3
-> Final cost:          0.009041835046290588 ETH
+The challenge is set up to run in a local environment, consuming the contracts already deployed on the Goerli testnet. To initialize the backend, execute the following commands:
+
+1. Navigate to the `/proposals-api` directory.
+2. Run the following commands:
+
+    ```bash
+    npm i
+    npm run dev
+    ```
+
+The backend exposes a GET endpoint `/proposals` that returns the list of proposals from the DAO contract.
+
+## Frontend
+
+To initialize the frontend, execute the following commands:
+
+1. Navigate to the `/proposals-ui` directory.
+2. Run the following commands:
+
+    ```bash
+    npm i
+    npm start
+    ```
+
+### Admin Scripts
+
+In the `/admin` directory, there are two scripts: one for creating proposals and another for transferring tokens. To use them, follow these steps:
+
+1. Create a file named `.secret` inside the `/admin` directory, containing the private key of the account used to deploy the smart contracts. This account is the only one allowed to transfer tokens and create proposals.
+2. Run the following command to create a proposal:
+
+    ```bash
+    node createProposal.js "Proposal Title" "Proposal Description" "Option A" "Option B" 3600 10
+    ```
+
+    Parameters are in the following order: title, description, option A, option B, duration in seconds, minimum votes.
+
+Examples:
+
+```bash
+node createProposal.js "First proposal as an example" "This is the first proposal" "Option A" "Option B" 3600 10
+node createProposal.js "Should we allow people without tokens to vote?" "This is the second proposal" "Yes" "No" 3600 5
+node createProposal.js "Minimum votes should always be at least 10?" "This is the third proposal" "Yes" "No" 3600 10```
+
+## Additional Notes
+Features pending in the frontend:
+- Allow admin to finish a proposal
+- Allow admin to switch a proposal state between Pending and Closed
+
+The contract is already prepared for an admin to finish a proposal and also switch a proposal state between Pending and Closed. It’s pending to allow those functionalities on the UI.
