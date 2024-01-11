@@ -102,8 +102,8 @@ node createProposal.js "Minimum votes should always be at least 10?" "This is th
 ```
 
 ## Additional Notes
-Features pending in the frontend:
+Features Nice To Have in the frontend:
 - Allow admin to finish a proposal
 - Allow admin to switch a proposal state between Pending and Closed
 
-The contract is already prepared for an admin to finish a proposal and also switch a proposal state between Pending and Closed. It’s pending to allow those functionalities on the UI.
+The contract is already prepared for an admin to finish a proposal and also switch a proposal state between Pending and Closed. It would be nice to have those functionalities on the UI.
