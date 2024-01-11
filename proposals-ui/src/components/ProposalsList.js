@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, Grid, Box } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import ProposalItem from './ProposalItem';
 
-const GET_PROPOSALS_ENDPOINT = 'http://localhost:3000/proposals';
+const GET_PROPOSALS_ENDPOINT = 'https://proposals-api-9b953f7baef2.herokuapp.com/proposals';
 
 const ProposalsList = () => {
     const [proposals, setProposals] = useState([]);
