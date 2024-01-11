@@ -35,7 +35,7 @@ option A won, option B won, etc)
 ⚠️ **Disclaimer:**
 The application is integrated with [Metamask](https://metamask.io/). Please make sure to have the Metamask browser extension installed to use its functionalities and participate in voting.
 
-![image](https://github.com/tomasmendesr/rather-labs-challenge/assets/12787069/900233ce-4251-4184-bd54-924cf9b05247)
+![image](https://github.com/tomasmendesr/rather-labs-challenge/assets/12787069/7e1b2180-39eb-45cd-939f-a83151968b01)
 
 
 **Backend**
