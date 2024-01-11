@@ -1,8 +1,8 @@
 const enableMetaMask = async () => {
     if (window.ethereum) {
       try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log('User account:', accounts[0]);
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        console.log('Successfully connected to Metamask')
       } catch (error) {
         console.error('Error connecting to MetaMask:', error);
       }
