@@ -1,4 +1,4 @@
-import { Card, CardContent, Chip, Typography } from '@mui/material';
+import { Card, CardContent, Chip, Typography, Tooltip } from '@mui/material';
 import ProposalOptionVote from './ProposalOptionVote';
 
 const ProposalItem = ({ proposalIndex, proposal }) => {
@@ -6,6 +6,12 @@ const ProposalItem = ({ proposalIndex, proposal }) => {
     Pending: 'green',
     Closed: 'grey',
     Finished: 'red',
+  };
+
+  const statusHelpDescription = {
+    Pending: 'The proposal can still receive votes',
+    Closed: 'The proposal is temporarily ineligible to receive votes',
+    Finished: 'The time to vote on this proposal has expired',
   };
 
   const formatDate = (date) => {
@@ -27,16 +33,18 @@ const ProposalItem = ({ proposalIndex, proposal }) => {
   return (
     <Card>
       <CardContent>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Chip
-            label={proposal.status}
-            style={{
-              backgroundColor: statusColors[proposal.status],
-              color: 'white',
-              fontWeight: 'bold',
-            }}
-          />
-        </div>
+        <Tooltip title={statusHelpDescription[proposal.status]} arrow>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', cursor: 'pointer' }}>
+            <Chip
+              label={proposal.status}
+              style={{
+                backgroundColor: statusColors[proposal.status],
+                color: 'white',
+                fontWeight: 'bold',
+              }}
+            />
+          </div>
+        </Tooltip>
         <Typography variant="h6">{proposal.title}</Typography>
         <Typography variant="body2">{proposal.description}</Typography>
         <Typography variant="body2" mt={1}>

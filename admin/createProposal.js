@@ -36,7 +36,7 @@ const createProposalTransaction = contract.methods.createProposal(title, descrip
 const data = createProposalTransaction.encodeABI();
 
 web3.eth.getGasPrice().then(async (gasPrice) => {
-    const gasLimit = 500000; // Establece un límite de gas razonable
+    const gasLimit = 500000;
 
     const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'pending');
     const tx = {

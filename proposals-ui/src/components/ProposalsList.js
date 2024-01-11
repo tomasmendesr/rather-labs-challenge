@@ -85,7 +85,7 @@ const ProposalsList = () => {
 
   return (
     <div>
-      <Typography variant="h3" mb={1}>Proposals</Typography>
+      <Typography variant="h4" p={4} style={{color: 'rgb(129 116 116)'}}>Proposals</Typography>
       <Grid container spacing={2}>
         {proposals.map((proposal, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
