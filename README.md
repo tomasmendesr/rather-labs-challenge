@@ -2,6 +2,8 @@
 node createProposal.js "First proposal as example" "This is the first proposal" "Option A" "Option B" 3600 10
 node createProposal.js "Should we allow people without tokens to vote? " "This is the second proposal" "Yes" "No" 3600 5
 node createProposal.js "Minimum votes should always be at least 10? " "This is the third proposal" "Yes" "No" 3600 10
+node createProposal.js "Admin should be able to vote?" "A new proposal" "Yes" "No" 3600 4
+node createProposal.js "Is this the last proposal?" "Final proposal" "Yes" "No" 3600 25
 
 =====================
 

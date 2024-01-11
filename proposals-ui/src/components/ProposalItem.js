@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-const ProposalItem = ({ proposalIndex, proposal }) => {
+const ProposalItem = ({ proposalIndex, proposal, onVote }) => {
     const [snackbarData, setSnackbarData] = useState({
         snackbarOpen: false,
         snackbarMessage: '',
@@ -59,6 +59,7 @@ const ProposalItem = ({ proposalIndex, proposal }) => {
             snackbarMessage: result.message,
             snackbarSuccess: result.succeed
         });
+        onVote()
     }
 
     const resetSnackbar = () => {
