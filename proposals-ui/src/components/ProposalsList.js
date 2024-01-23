@@ -3,7 +3,9 @@ import axios from 'axios';
 import { Typography, Grid } from '@mui/material';
 import ProposalItem from './ProposalItem';
 
-const GET_PROPOSALS_ENDPOINT = 'https://proposals-api-9b953f7baef2.herokuapp.com/proposals';
+const GET_PROPOSALS_ENDPOINT = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ?
+    'http://localhost:3003/proposals' :
+    'https://proposals-api-9b953f7baef2.herokuapp.com/proposals';
 
 const ProposalsList = () => {
     const [proposals, setProposals] = useState([]);
